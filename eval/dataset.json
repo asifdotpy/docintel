@@ -1,0 +1,53 @@
+[
+  {
+    "id": "inv-001",
+    "file": "invoices/inv-001.pdf",
+    "corrupt": false,
+    "ground_truth": {
+      "invoice_number": "INV-1001",
+      "invoice_date": "2024-03-15",
+      "supplier_name": "Acme Corp",
+      "customer_name": "Beta LLC",
+      "subtotal": 250.0,
+      "tax": 25.0,
+      "total": 275.0,
+      "currency": "USD"
+    }
+  },
+  {
+    "id": "inv-002",
+    "file": "invoices/inv-002.pdf",
+    "corrupt": false,
+    "ground_truth": {
+      "invoice_number": "INV-2002",
+      "invoice_date": "2024-07-02",
+      "supplier_name": "Globex Inc",
+      "customer_name": "Initech",
+      "subtotal": 500.0,
+      "tax": 50.0,
+      "total": 550.0,
+      "currency": "EUR"
+    }
+  },
+  {
+    "id": "inv-003",
+    "file": "invoices/inv-003.pdf",
+    "corrupt": false,
+    "ground_truth": {
+      "invoice_number": "INV-3003",
+      "invoice_date": "2024-11-20",
+      "supplier_name": "Soylent Corp",
+      "customer_name": "Umbrella Co",
+      "subtotal": 120.0,
+      "tax": 12.0,
+      "total": 132.0,
+      "currency": "BDT"
+    }
+  },
+  {
+    "id": "inv-004-corrupt",
+    "file": "invoices/inv-004-corrupt.pdf",
+    "corrupt": true,
+    "ground_truth": {}
+  }
+]

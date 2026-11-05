@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local
+.env
+board.json.lock
+data/uploads/**
+!data/uploads/.gitkeep
+
+# Frontend
+apps/web/node_modules/
+apps/web/.next/
+apps/web/out/
+
