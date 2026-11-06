@@ -37,6 +37,28 @@ def test_parse_xlsx_multi_sheet(tmp_path: Path) -> None:
     assert sheet1["rows"][1] == [1, 3]
 
 
+def test_parse_xlsx_preserves_rows_before_invoice_headers(tmp_path: Path) -> None:
+    path = tmp_path / "invoice-with-preamble.xlsx"
+    rows = [
+        ["Quarterly invoice summary", None],
+        ["Account: AC-12", None],
+        ["Invoice number", "Total"],
+        ["INV-1", 25.0],
+    ]
+    pd.DataFrame(rows).to_excel(
+        path,
+        sheet_name="Invoice",
+        header=False,
+        index=False,
+    )
+
+    result = parse(path)
+
+    assert result["sheets"][0]["rows"] == rows
+    assert "Invoice number | Total" in result["text"]
+    assert "INV-1 | 25" in result["text"]
+
+
 def test_parse_empty_sheet(tmp_path: Path) -> None:
     path = tmp_path / "empty.xlsx"
     with pd.ExcelWriter(path, engine="openpyxl") as writer:

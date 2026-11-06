@@ -15,9 +15,9 @@ wheels/
 board.json.lock
 data/uploads/**
 !data/uploads/.gitkeep
+eval/local/
 
 # Frontend
 apps/web/node_modules/
 apps/web/.next/
 apps/web/out/
-
