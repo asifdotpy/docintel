@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     extractor: str = "fake"
     embedding_dim: int = 384
     embedding_model: str = "BAAI/bge-small-en-v1.5"
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
 
     model_config = SettingsConfigDict(
         env_file=".env",

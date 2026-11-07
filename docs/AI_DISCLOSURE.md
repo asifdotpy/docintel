@@ -2,7 +2,7 @@
 
 ## Models used
 
-- Extraction LLM: Gemini 2.0 Flash (via OpenAI-compatible endpoint) in production; deterministic fake mode for tests/offline.
+- Extraction LLM: `gemini-3.5-flash-lite` by default (configurable with `GEMINI_MODEL`), called through Google's OpenAI-compatible endpoint; deterministic fake mode for tests/offline.
 - Coding assistant: used throughout to scaffold FastAPI/arq/Next.js, write tests, and draft docs. All generated code was reviewed and edited by the candidate.
 
 ## Prompts
@@ -16,6 +16,6 @@ The extraction prompt is defined in `src/docintel/extract/schema.py` (`EXTRACTIO
 
 ## Data handling
 
-- No real customer data was used; evaluation uses synthetic invoices.
+- No real customer data was used. Evaluation uses four public, source-labeled invoice images from the Hugging Face datasets listed in the README, plus generated format-conversion and failure fixtures. The small labeled sample is not a production benchmark.
 - Secrets (GEMINI_API_KEY) are read from `.env` and never committed (`.gitignore`).
 - AI-generated content is not presented as human-authored without review.

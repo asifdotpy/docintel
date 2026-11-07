@@ -113,3 +113,16 @@ def test_semantic_mode_no_crash(client: TestClient) -> None:
     resp = client.get("/api/search?mode=semantic&q=invoice")
     assert resp.status_code == 200
     assert isinstance(resp.json(), list)
+
+
+def test_cosine_returns_serializable_python_float() -> None:
+    import numpy as np
+
+    from docintel.search import _cosine
+
+    score = _cosine(
+        [np.float32(1.0), np.float32(0.0)],
+        [np.float32(1.0), np.float32(0.0)],
+    )
+    assert type(score) is float
+    assert score == 1.0

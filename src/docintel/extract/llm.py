@@ -30,6 +30,8 @@ def _gemini_extract(text: str) -> Invoice:
     client = OpenAI(
         base_url=settings.gemini_base_url,
         api_key=settings.gemini_api_key,
+        timeout=120.0,
+        max_retries=1,
     )
     response = client.chat.completions.create(
         model=settings.gemini_model,

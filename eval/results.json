@@ -1,79 +1,2071 @@
 {
   "summary": {
-    "samples": 4,
-    "successes": 3,
-    "failures": 1,
-    "success_rate": 0.75,
-    "field_accuracy": 1.0,
-    "avg_latency_s": 1.4121,
-    "extractor": "gemini"
+    "samples": 35,
+    "selected_source_samples": {
+      "katanaml-org/invoices-donut-data-v1": 2,
+      "Francisco-Cruz/InvoicesReceiptsPT": 2
+    },
+    "processing_successes": 31,
+    "processing_failures": 1,
+    "upload_rejections": 2,
+    "timeouts": 1,
+    "unexpected_failures": 5,
+    "field_accuracy": {
+      "fields": {
+        "invoice_number": {
+          "correct": 2,
+          "total": 4,
+          "accuracy": 0.5
+        },
+        "invoice_date": {
+          "correct": 3,
+          "total": 4,
+          "accuracy": 0.75
+        },
+        "supplier_name": {
+          "correct": 0,
+          "total": 4,
+          "accuracy": 0.0
+        },
+        "customer_name": {
+          "correct": 0,
+          "total": 2,
+          "accuracy": 0.0
+        },
+        "subtotal": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 4,
+          "total": 4,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 0,
+          "total": 0,
+          "accuracy": null
+        }
+      },
+      "aggregate": {
+        "correct": 14,
+        "total": 23,
+        "accuracy": 0.6086956521739131
+      },
+      "unknown_null_predictions": {
+        "customer_name": 1,
+        "subtotal": 1,
+        "currency": 4
+      }
+    },
+    "source_image_outcomes": {
+      "samples": 4,
+      "completed": 4,
+      "failed": 0,
+      "unlabeled_realism_samples": 0
+    },
+    "processing_by_format": {
+      ".jpg": {
+        "success": 5,
+        "total": 5
+      },
+      ".pdf": {
+        "success": 11,
+        "total": 12
+      },
+      ".tiff": {
+        "success": 4,
+        "total": 4
+      },
+      ".csv": {
+        "success": 4,
+        "total": 5
+      },
+      ".xlsx": {
+        "success": 7,
+        "total": 9
+      }
+    },
+    "processing_by_source": {
+      "katanaml-org/invoices-donut-data-v1": {
+        "success": 17,
+        "total": 21
+      },
+      "Francisco-Cruz/InvoicesReceiptsPT": {
+        "success": 14,
+        "total": 14
+      }
+    },
+    "planted_validation_cases": {
+      "checked": 6,
+      "matched": 2,
+      "accuracy": 0.3333333333333333
+    },
+    "duplicate_detection_cases": {
+      "checked": 1,
+      "matched": 1,
+      "accuracy": 1.0
+    },
+    "latency_s": {
+      "mean": 29.25642,
+      "p50": 15.5235,
+      "p95": 151.7763
+    },
+    "stress": {
+      "executed": false,
+      "samples": 0,
+      "completed": 0,
+      "failed": 0,
+      "latency_s": {
+        "mean": null,
+        "p50": null,
+        "p95": null
+      }
+    }
   },
   "results": [
     {
-      "id": "inv-001",
-      "file": "invoices/inv-001.pdf",
-      "status": "success",
+      "id": "sparrow-000191-original",
+      "file": "fixtures/sparrow-000191/original.jpg",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "labeled",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
       "error": null,
-      "latency_s": 2.1243,
-      "field_accuracy": 1.0,
       "predicted": {
-        "invoice_number": "INV-1001",
-        "invoice_date": "2024-03-15",
-        "supplier_name": "Acme Corp",
-        "customer_name": "Beta LLC",
-        "subtotal": 250.0,
-        "tax": 25.0,
-        "total": 275.0,
+        "tax": 937.9,
+        "total": 10316.95,
         "currency": "USD",
-        "line_items": []
-      }
+        "subtotal": 9379.05,
+        "line_items": [
+          {
+            "amount": 269.9,
+            "quantity": 2.0,
+            "unit_price": 134.95,
+            "description": "Dell Desktop Computer 3020 Micro Tiny PC Intel i3 4GB 120GB SSD Windows 10 WiFi"
+          },
+          {
+            "amount": 836.0,
+            "quantity": 4.0,
+            "unit_price": 209.0,
+            "description": "HP Elite 8100 Desktop Computer Package - Intel Core i5 3.2-GHz, 8GB RAM, 500GB H"
+          },
+          {
+            "amount": 749.75,
+            "quantity": 5.0,
+            "unit_price": 149.95,
+            "description": "Dell Desktop Computer Optiplex 790 Tower PC Core i5 8GB 500GB Windows 10 Pro"
+          },
+          {
+            "amount": 1744.4,
+            "quantity": 5.0,
+            "unit_price": 348.88,
+            "description": "10-Core Gaming Computer Desktop PC Tower HDMI 8GB DDR4 R7 Graphic CUSTOM BUILT"
+          },
+          {
+            "amount": 4519.0,
+            "quantity": 5.0,
+            "unit_price": 903.8,
+            "description": "Gaming PC Desktop Computer HDMI RGB Intel i7 RTX 2060, HDD+SSD, Windows 10, Wifi"
+          },
+          {
+            "amount": 1260.0,
+            "quantity": 4.0,
+            "unit_price": 315.0,
+            "description": "Computer Desktop Gaming i5 Ram 16G"
+          }
+        ],
+        "invoice_date": "02/23/2020",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 45.9575,
+      "field_match": [
+        5,
+        7
+      ]
     },
     {
-      "id": "inv-002",
-      "file": "invoices/inv-002.pdf",
-      "status": "success",
+      "id": "sparrow-000191-invoice",
+      "file": "fixtures/sparrow-000191/invoice.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "labeled_format",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
       "error": null,
-      "latency_s": 1.6626,
-      "field_accuracy": 1.0,
       "predicted": {
-        "invoice_number": "INV-2002",
-        "invoice_date": "2024-07-02",
-        "supplier_name": "Globex Inc",
-        "customer_name": "Initech",
-        "subtotal": 500.0,
-        "tax": 50.0,
-        "total": 550.0,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": "USD",
+        "subtotal": 9379.05,
+        "line_items": [
+          {
+            "amount": 269.9,
+            "quantity": 2.0,
+            "unit_price": 134.95,
+            "description": "Dell Desktop Computer 3020 Micro Tiny PC Intel i3 4GB 120GB SSD Windows 10 WiFi"
+          },
+          {
+            "amount": 836.0,
+            "quantity": 4.0,
+            "unit_price": 209.0,
+            "description": "HP Elite 8100 Desktap Computer Package - Intel Core i5 3.2-GHz, 8GB RAM, 500GB H"
+          },
+          {
+            "amount": 749.75,
+            "quantity": 5.0,
+            "unit_price": 149.95,
+            "description": "Dell Desktop Computer Optiplex 790 Tower PC Core i5 8GB 500GB Windows 10 Pro"
+          },
+          {
+            "amount": 1744.4,
+            "quantity": 5.0,
+            "unit_price": 348.88,
+            "description": "10-Core Gaming Computer Desktop PC Tower HDMI 8GB DDR4 R7 Graphic CUSTOM BUILT"
+          },
+          {
+            "amount": 4519.0,
+            "quantity": 5.0,
+            "unit_price": 903.8,
+            "description": "Gaming PC Desktop Computer HDMI RGB Intel 17 RTX 2060, HDD+SSD, Windows 10, Wifi"
+          },
+          {
+            "amount": 1260.0,
+            "quantity": 4.0,
+            "unit_price": 315.0,
+            "description": "Computer Desktop Gaming i5 4,00 Ram 16G"
+          }
+        ],
+        "invoice_date": "02/23/2020",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 92,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 20.6002,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-invoice-multipage",
+      "file": "fixtures/sparrow-000191/invoice-multipage.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": "USD",
+        "subtotal": 9379.05,
+        "line_items": [
+          {
+            "amount": 269.9,
+            "quantity": 2.0,
+            "unit_price": 134.95,
+            "description": "Dell Desktop Computer 3020 Micro Tiny PC Intel i3 4GB 120GB SSD Windows 10 WiFi"
+          },
+          {
+            "amount": 836.0,
+            "quantity": 4.0,
+            "unit_price": 209.0,
+            "description": "HP Elite 8100 Desktap Computer Package - Intel Core i5 3.2-GHz, 8GB RAM, 500GB H"
+          },
+          {
+            "amount": 749.75,
+            "quantity": 5.0,
+            "unit_price": 149.95,
+            "description": "Dell Desktop Computer Optiplex 790 Tower PC Core i5 8GB 500GB Windows 10 Pro"
+          },
+          {
+            "amount": 1744.4,
+            "quantity": 5.0,
+            "unit_price": 348.88,
+            "description": "10-Core Gaming Computer Desktop PC Tower HDMI 8GB DDR4 R7 Graphic CUSTOM BUILT"
+          },
+          {
+            "amount": 4519.0,
+            "quantity": 5.0,
+            "unit_price": 903.8,
+            "description": "Gaming PC Desktop Computer HDMI RGB Intel 17 RTX 2060, HDD+SSD, Windows 10, Wifi"
+          },
+          {
+            "amount": 1260.0,
+            "quantity": 4.0,
+            "unit_price": 315.0,
+            "description": "Computer Desktop Gaming i5 Ram 16G"
+          }
+        ],
+        "invoice_date": "02/23/2020",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 93,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 25.3624,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-invoice-multipage",
+      "file": "fixtures/sparrow-000191/invoice-multipage.tiff",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": "USD",
+        "subtotal": 9379.05,
+        "line_items": [
+          {
+            "amount": 269.9,
+            "quantity": 2.0,
+            "unit_price": 134.95,
+            "description": "Dell Desktop Computer 3020 Micro Tiny PC Intel i3 4GB 120GB SSD Windows 10 WiFi"
+          },
+          {
+            "amount": 836.0,
+            "quantity": 4.0,
+            "unit_price": 209.0,
+            "description": "HP Elite 8100 Desktop Computer Package - Intel Core i5 3.2-GHz, 8GB RAM, 500GB H"
+          },
+          {
+            "amount": 749.75,
+            "quantity": 5.0,
+            "unit_price": 149.95,
+            "description": "Dell Desktop Computer Optiplex 790 Tower PC Core i5 8GB 500GB Windows 10 Pro"
+          },
+          {
+            "amount": 1744.4,
+            "quantity": 5.0,
+            "unit_price": 348.88,
+            "description": "10-Core Gaming Computer Desktop PC Tower HDMI 8GB DDR4 R7 Graphic CUSTOM BUILT"
+          },
+          {
+            "amount": 4519.0,
+            "quantity": 5.0,
+            "unit_price": 903.8,
+            "description": "Gaming PC Desktop Computer HDMI RGB Intel i7 RTX 2060, HDD+SSD, Windows 10, Wifi"
+          },
+          {
+            "amount": 1260.0,
+            "quantity": 4.0,
+            "unit_price": 315.0,
+            "description": "Computer Desktop Gaming i5 Ram 16G"
+          }
+        ],
+        "invoice_date": "02/23/2020",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 94,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 26.5353,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-invoice",
+      "file": "fixtures/sparrow-000191/invoice.csv",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null,
+        "subtotal": 9379.05,
+        "line_items": [],
+        "invoice_date": "2020-02-23",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 95,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 3.1023,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-invoice",
+      "file": "fixtures/sparrow-000191/invoice.xlsx",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "validation_control",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": []
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null,
+        "subtotal": 9379.05,
+        "line_items": [],
+        "invoice_date": "2020-02-23",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 6.1795,
+      "field_match": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-invoice-mismatch",
+      "file": "fixtures/sparrow-000191/invoice-mismatch.xlsx",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "negative_validation",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": [
+          "calculation_mismatch"
+        ]
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10317.95,
+        "currency": null,
+        "subtotal": 9379.05,
+        "line_items": [],
+        "invoice_date": "2020-02-23",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 96,
+          "code": "calculation_mismatch",
+          "field": "total",
+          "message": "subtotal + tax does not equal total."
+        },
+        {
+          "id": 97,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 4.1554,
+      "field_match": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-original",
+      "file": "fixtures/sparrow-000271/original.jpg",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "labeled",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": "USD",
+        "subtotal": 698.65,
+        "line_items": [
+          {
+            "amount": 449.95,
+            "quantity": 5.0,
+            "unit_price": 89.99,
+            "description": "Moonshine Still 8Gal/30L Water Alcohol Distiller Home Brew Wine Making Kit 3 Pot"
+          },
+          {
+            "amount": 69.8,
+            "quantity": 4.0,
+            "unit_price": 17.45,
+            "description": "1Pc Wine Glass Holder Beautiful Goblet Storage Cup Draining Rack (Black)"
+          },
+          {
+            "amount": 25.0,
+            "quantity": 5.0,
+            "unit_price": 5.0,
+            "description": "Wine Bottle Holder From Costa Rica Has A Parrot Painted On It"
+          },
+          {
+            "amount": 30.38,
+            "quantity": 2.0,
+            "unit_price": 15.19,
+            "description": "Wine Glass Holder Shelf Japanese Style Bar Iron Under Cabinet Stemware Rack"
+          },
+          {
+            "amount": 107.52,
+            "quantity": 4.0,
+            "unit_price": 26.88,
+            "description": "Hanging Wine Cup Rack Goblet Inverted Holder Stemware Display Shelf Drainer"
+          },
+          {
+            "amount": 16.0,
+            "quantity": 1.0,
+            "unit_price": 16.0,
+            "description": "Libbey Snowflake Wine Dessert Glass/Tumbler Set of 8."
+          }
+        ],
+        "invoice_date": "03/20/2014",
+        "customer_name": "Cox, Franklin and Wood",
+        "supplier_name": "Lewis, Morris and Stanley",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 26.4788,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-invoice",
+      "file": "fixtures/sparrow-000271/invoice.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "labeled_format",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": "USD",
+        "subtotal": 698.65,
+        "line_items": [
+          {
+            "amount": 449.95,
+            "quantity": 5.0,
+            "unit_price": 89.99,
+            "description": "Moonshine Still 8Gal/30L Water Alcohol Distiller Home Brew Wine Making Kit 3 Pot"
+          },
+          {
+            "amount": 69.8,
+            "quantity": 4.0,
+            "unit_price": 17.45,
+            "description": "1Pc Wine Glass Holder Beautiful Goblet Storage Cup Draining Rack (Black)"
+          },
+          {
+            "amount": 25.0,
+            "quantity": 5.0,
+            "unit_price": 5.0,
+            "description": "Wine Bottle Holder From Costa Rica Has A Parrot Painted On It"
+          },
+          {
+            "amount": 30.38,
+            "quantity": 2.0,
+            "unit_price": 15.19,
+            "description": "Wine Glass Holder Shelf Japanese Style Bar Iron Under Cabinet Stemware Rack"
+          },
+          {
+            "amount": 107.52,
+            "quantity": 4.0,
+            "unit_price": 26.88,
+            "description": "Hanging Wine Cup Rack Goblet Inverted Holder Stemware Display Shelf Drainer"
+          },
+          {
+            "amount": 16.0,
+            "quantity": 1.0,
+            "unit_price": 16.0,
+            "description": "Libbey Snowflake Wine Dessert Glass/Tumbler Set of 8."
+          }
+        ],
+        "invoice_date": "03/20/2014",
+        "customer_name": "Cox, Franklin and Wood",
+        "supplier_name": "Lewis, Morris and Stanley",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [
+        {
+          "id": 98,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 15.5665,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-invoice-multipage",
+      "file": "fixtures/sparrow-000271/invoice-multipage.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": "USD",
+        "subtotal": 698.65,
+        "line_items": [
+          {
+            "amount": 494.95,
+            "quantity": 5.0,
+            "unit_price": 89.99,
+            "description": "Moonshine Still 8Gal/30L Water Alcohol Distiller Home Brew Wine Making Kit 3 Pot"
+          },
+          {
+            "amount": 76.78,
+            "quantity": 4.0,
+            "unit_price": 17.45,
+            "description": "1Pc Wine Glass Holder Beautiful Goblet Storage Cup Draining Rack (Black)"
+          },
+          {
+            "amount": 27.5,
+            "quantity": 5.0,
+            "unit_price": 5.0,
+            "description": "Wine Bottle Holder From Costa Rica Has A Parrot Painted On It"
+          },
+          {
+            "amount": 33.42,
+            "quantity": 2.0,
+            "unit_price": 15.19,
+            "description": "Wine Glass Holder Shelf Japanese Style Bar Iron Under Cabinet Stemware Rack"
+          },
+          {
+            "amount": 118.27,
+            "quantity": 4.0,
+            "unit_price": 26.88,
+            "description": "Hanging Wine Cup Rack Goblet Inverted Holder Stemware Display Shelf Drainer"
+          },
+          {
+            "amount": 17.6,
+            "quantity": 1.0,
+            "unit_price": 16.0,
+            "description": "Libbey Snowflake Wine Dessert Glass/Tumbler Set of 8."
+          }
+        ],
+        "invoice_date": "03/20/2014",
+        "customer_name": "Cox, Franklin and Wood",
+        "supplier_name": "Lewis, Morris and Stanley",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [
+        {
+          "id": 99,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 28.8734,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-invoice-multipage",
+      "file": "fixtures/sparrow-000271/invoice-multipage.tiff",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": "USD",
+        "subtotal": 698.65,
+        "line_items": [
+          {
+            "amount": 449.95,
+            "quantity": 5.0,
+            "unit_price": 89.99,
+            "description": "Moonshine Still 8Gal/30L Water Alcohol Distiller Home Brew Wine Making Kit 3 Pot"
+          },
+          {
+            "amount": 69.8,
+            "quantity": 4.0,
+            "unit_price": 17.45,
+            "description": "1Pc Wine Glass Holder Beautiful Goblet Storage Cup Draining Rack (Black)"
+          },
+          {
+            "amount": 25.0,
+            "quantity": 5.0,
+            "unit_price": 5.0,
+            "description": "Wine Bottle Holder From Costa Rica Has A Parrot Painted On It"
+          },
+          {
+            "amount": 30.38,
+            "quantity": 2.0,
+            "unit_price": 15.19,
+            "description": "Wine Glass Holder Shelf Japanese Style Bar Iron Under Cabinet Stemware Rack"
+          },
+          {
+            "amount": 107.52,
+            "quantity": 4.0,
+            "unit_price": 26.88,
+            "description": "Hanging Wine Cup Rack Goblet Inverted Holder Stemware Display Shelf Drainer"
+          },
+          {
+            "amount": 16.0,
+            "quantity": 1.0,
+            "unit_price": 16.0,
+            "description": "Libbey Snowflake Wine Dessert Glass/Tumbler Set of 8."
+          }
+        ],
+        "invoice_date": "03/20/2014",
+        "customer_name": "Cox, Franklin and Wood",
+        "supplier_name": "Lewis, Morris and Stanley",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [
+        {
+          "id": 100,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 37.3449,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-invoice",
+      "file": "fixtures/sparrow-000271/invoice.csv",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null,
+        "subtotal": 698.65,
+        "line_items": [],
+        "invoice_date": "2014-03-20",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 3.1053,
+      "field_match": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000271-invoice",
+      "file": "fixtures/sparrow-000271/invoice.xlsx",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "validation_control",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": []
+      },
+      "status": "timeout",
+      "error": "Job did not finish within 300s.",
+      "predicted": {},
+      "validation_errors": [],
+      "latency_s": 300.0315
+    },
+    {
+      "id": "sparrow-000271-invoice-mismatch",
+      "file": "fixtures/sparrow-000271/invoice-mismatch.xlsx",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "negative_validation",
+      "ground_truth": {
+        "invoice_number": "93697303",
+        "invoice_date": "2014-03-20",
+        "supplier_name": "Lewis, Morris and Stanley Unit 8414 Box 3851 DPO AP 76145",
+        "customer_name": "Cox, Franklin and Wood 587 Cervantes Street Suite 066 West Jasmine, SC 53417",
+        "subtotal": 698.65,
+        "tax": 69.86,
+        "total": 768.51,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": [
+          "calculation_mismatch"
+        ]
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 69.86,
+        "total": 769.51,
+        "currency": null,
+        "subtotal": 698.65,
+        "line_items": [],
+        "invoice_date": "2014-03-20",
+        "customer_name": "Cox, Franklin and Wood",
+        "supplier_name": "Lewis, Morris and Stanley",
+        "invoice_number": "93697303"
+      },
+      "validation_errors": [
+        {
+          "id": 101,
+          "code": "calculation_mismatch",
+          "field": "total",
+          "message": "subtotal + tax does not equal total."
+        },
+        {
+          "id": 102,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 74.3081,
+      "field_match": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "20210215_165944-original",
+      "file": "fixtures/20210215_165944/original.jpg",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "labeled",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
         "currency": "EUR",
-        "line_items": []
-      }
+        "subtotal": 30.93,
+        "line_items": [
+          {
+            "amount": 20.0,
+            "quantity": 10.0,
+            "unit_price": 2.0,
+            "description": "DIGITALIZACAO SCANNER H"
+          },
+          {
+            "amount": 5.04,
+            "quantity": 18.0,
+            "unit_price": 0.28,
+            "description": "IMPRESSAO DIGITAL 10x15"
+          },
+          {
+            "amount": 13.0,
+            "quantity": 13.0,
+            "unit_price": 1.0,
+            "description": "IMP DIG 13x18 / 15x20"
+          }
+        ],
+        "invoice_date": "2020-11-20",
+        "customer_name": "Consumidor final",
+        "supplier_name": "Fotusport",
+        "invoice_number": "6 8/44903"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 151.7763,
+      "field_match": [
+        3,
+        5
+      ]
     },
     {
-      "id": "inv-003",
-      "file": "invoices/inv-003.pdf",
-      "status": "success",
+      "id": "20210215_165944-invoice",
+      "file": "fixtures/20210215_165944/invoice.pdf",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "labeled_format",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
       "error": null,
-      "latency_s": 1.86,
-      "field_accuracy": 1.0,
       "predicted": {
-        "invoice_number": "INV-3003",
-        "invoice_date": "2024-11-20",
-        "supplier_name": "Soylent Corp",
-        "customer_name": "Umbrella Co",
-        "subtotal": 120.0,
-        "tax": 12.0,
-        "total": 132.0,
-        "currency": "BDT",
-        "line_items": []
-      }
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": "EUR",
+        "subtotal": 30.93,
+        "line_items": [
+          {
+            "amount": 20.0,
+            "quantity": 10.0,
+            "unit_price": 2.0,
+            "description": "DIG TALIZACAO SCANNER"
+          },
+          {
+            "amount": 5.04,
+            "quantity": 18.0,
+            "unit_price": 0.28,
+            "description": "IMPRESSAO DIGITAL 10x15"
+          },
+          {
+            "amount": 13.0,
+            "quantity": 13.0,
+            "unit_price": 1.0,
+            "description": "IMP DIG 13x18 / 15x20"
+          }
+        ],
+        "invoice_date": "2020-11-20",
+        "customer_name": "Consumidor final",
+        "supplier_name": "Fotusport",
+        "invoice_number": "68/44903"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 15.5235,
+      "field_match": [
+        3,
+        5
+      ]
     },
     {
-      "id": "inv-004-corrupt",
-      "file": "invoices/inv-004-corrupt.pdf",
-      "status": "failure",
-      "error": "Cannot read PDF: Stream has ended unexpectedly",
-      "latency_s": 0.0015,
-      "field_accuracy": 0.0,
-      "predicted": {}
+      "id": "20210215_165944-invoice-multipage",
+      "file": "fixtures/20210215_165944/invoice-multipage.pdf",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": "EUR",
+        "subtotal": 30.93,
+        "line_items": [
+          {
+            "amount": 20.0,
+            "quantity": 10.0,
+            "unit_price": 2.0,
+            "description": "DIG TALIZACAO SCANNER"
+          },
+          {
+            "amount": 5.04,
+            "quantity": 18.0,
+            "unit_price": 0.28,
+            "description": "IMPRESSAO DIGITAL 10x15"
+          },
+          {
+            "amount": 13.0,
+            "quantity": 13.0,
+            "unit_price": 1.0,
+            "description": "IMP DIG 13x18 / 15x20"
+          }
+        ],
+        "invoice_date": "2020-11-20",
+        "customer_name": "Combra Shupping",
+        "supplier_name": "Fotusport",
+        "invoice_number": "6 8/44903"
+      },
+      "validation_errors": [
+        {
+          "id": 103,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 63.4325,
+      "field_match": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "20210215_165944-invoice-multipage",
+      "file": "fixtures/20210215_165944/invoice-multipage.tiff",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": "EUR",
+        "subtotal": 30.93,
+        "line_items": [
+          {
+            "amount": 20.0,
+            "quantity": 10.0,
+            "unit_price": 2.0,
+            "description": "DIGITALIZACAO SCANNER H"
+          },
+          {
+            "amount": 5.04,
+            "quantity": 18.0,
+            "unit_price": 0.28,
+            "description": "IMPRESSAO DIGITAL 10x15"
+          },
+          {
+            "amount": 13.0,
+            "quantity": 13.0,
+            "unit_price": 1.0,
+            "description": "IMP DIG 13x18 / 15x20"
+          }
+        ],
+        "invoice_date": "2020-11-20",
+        "customer_name": "Consumidor final",
+        "supplier_name": "Fotusport",
+        "invoice_number": "68/44903"
+      },
+      "validation_errors": [
+        {
+          "id": 105,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 29.5089,
+      "field_match": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "20210215_165944-invoice",
+      "file": "fixtures/20210215_165944/invoice.csv",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2020-11-20",
+        "customer_name": null,
+        "supplier_name": "fotosport",
+        "invoice_number": "8/44903"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 5.2086,
+      "field_match": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "20210215_165944-invoice",
+      "file": "fixtures/20210215_165944/invoice.xlsx",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "validation_control",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": []
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2020-11-20",
+        "customer_name": null,
+        "supplier_name": "fotosport",
+        "invoice_number": "8/44903"
+      },
+      "validation_errors": [
+        {
+          "id": 106,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 4.1727,
+      "field_match": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "20210215_165944-invoice-mismatch",
+      "file": "fixtures/20210215_165944/invoice-mismatch.xlsx",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "negative_validation",
+      "ground_truth": {
+        "invoice_number": "8/44903",
+        "invoice_date": "2020-11-20",
+        "supplier_name": "fotosport",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": [],
+        "not_planted": true
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 7.11,
+        "total": 38.04,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2020-11-20",
+        "customer_name": null,
+        "supplier_name": "fotosport",
+        "invoice_number": "8/44903"
+      },
+      "validation_errors": [
+        {
+          "id": 107,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 4.1871,
+      "field_match": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "20210323_172107-original",
+      "file": "fixtures/20210323_172107/original.jpg",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "labeled",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.0,
+        "currency": "EUR",
+        "subtotal": null,
+        "line_items": [
+          {
+            "amount": 10.0,
+            "quantity": null,
+            "unit_price": null,
+            "description": "CARREGAMENTO KANGURU"
+          }
+        ],
+        "invoice_date": null,
+        "customer_name": null,
+        "supplier_name": "COMUN TEAC ORS SA",
+        "invoice_number": null
+      },
+      "validation_errors": [
+        {
+          "id": 108,
+          "code": "missing_field",
+          "field": "invoice_number",
+          "message": "Required field 'invoice_number' is missing."
+        },
+        {
+          "id": 109,
+          "code": "missing_field",
+          "field": "invoice_date",
+          "message": "Required field 'invoice_date' is missing."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 20.9483,
+      "field_match": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice",
+      "file": "fixtures/20210323_172107/invoice.pdf",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "labeled_format",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.6,
+        "currency": "EUR",
+        "subtotal": null,
+        "line_items": [
+          {
+            "amount": 10.6,
+            "quantity": null,
+            "unit_price": null,
+            "description": "CARREGAMENTO KANGURU"
+          }
+        ],
+        "invoice_date": null,
+        "customer_name": null,
+        "supplier_name": "SCOMUN TO AC OS SA",
+        "invoice_number": "42019C1/000157303"
+      },
+      "validation_errors": [
+        {
+          "id": 110,
+          "code": "missing_field",
+          "field": "invoice_date",
+          "message": "Required field 'invoice_date' is missing."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 14.5605,
+      "field_match": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice-multipage",
+      "file": "fixtures/20210323_172107/invoice-multipage.pdf",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.6,
+        "currency": "EUR",
+        "subtotal": null,
+        "line_items": [
+          {
+            "amount": 10.6,
+            "quantity": null,
+            "unit_price": null,
+            "description": "Kanguru carregam"
+          }
+        ],
+        "invoice_date": null,
+        "customer_name": null,
+        "supplier_name": null,
+        "invoice_number": "42019C1/000157303"
+      },
+      "validation_errors": [
+        {
+          "id": 111,
+          "code": "missing_field",
+          "field": "invoice_date",
+          "message": "Required field 'invoice_date' is missing."
+        },
+        {
+          "id": 112,
+          "code": "missing_field",
+          "field": "supplier_name",
+          "message": "Required field 'supplier_name' is missing."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 24.8889,
+      "field_match": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice-multipage",
+      "file": "fixtures/20210323_172107/invoice-multipage.tiff",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.0,
+        "currency": "EUR",
+        "subtotal": null,
+        "line_items": [
+          {
+            "amount": 10.0,
+            "quantity": null,
+            "unit_price": null,
+            "description": "MONT ANTE 10,00 EURO (IVA INCLUIDO A TAXA DE 23,00%)"
+          }
+        ],
+        "invoice_date": null,
+        "customer_name": null,
+        "supplier_name": null,
+        "invoice_number": null
+      },
+      "validation_errors": [
+        {
+          "id": 113,
+          "code": "missing_field",
+          "field": "invoice_number",
+          "message": "Required field 'invoice_number' is missing."
+        },
+        {
+          "id": 114,
+          "code": "missing_field",
+          "field": "invoice_date",
+          "message": "Required field 'invoice_date' is missing."
+        },
+        {
+          "id": 115,
+          "code": "missing_field",
+          "field": "supplier_name",
+          "message": "Required field 'supplier_name' is missing."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 32.0697,
+      "field_match": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice",
+      "file": "fixtures/20210323_172107/invoice.csv",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "generated_format",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.0,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2019-07-14",
+        "customer_name": null,
+        "supplier_name": "mb multibanco",
+        "invoice_number": "FS A2019C1/000157303"
+      },
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "done",
+      "latency_s": 4.2305,
+      "field_match": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice",
+      "file": "fixtures/20210323_172107/invoice.xlsx",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "validation_control",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": []
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.0,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2019-07-14",
+        "customer_name": null,
+        "supplier_name": "mb multibanco",
+        "invoice_number": "FS A2019C1/000157303"
+      },
+      "validation_errors": [
+        {
+          "id": 116,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 4.2665,
+      "field_match": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "20210323_172107-invoice-mismatch",
+      "file": "fixtures/20210323_172107/invoice-mismatch.xlsx",
+      "source": "Francisco-Cruz/InvoicesReceiptsPT",
+      "case_type": "negative_validation",
+      "ground_truth": {
+        "invoice_number": "FS A2019C1/000157303",
+        "invoice_date": "2019-07-14",
+        "supplier_name": "mb multibanco",
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": 10.0,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": [],
+        "not_planted": true
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": null,
+        "total": 10.0,
+        "currency": null,
+        "subtotal": null,
+        "line_items": [],
+        "invoice_date": "2019-07-14",
+        "customer_name": null,
+        "supplier_name": "mb multibanco",
+        "invoice_number": "FS A2019C1/000157303"
+      },
+      "validation_errors": [
+        {
+          "id": 117,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 6.5315,
+      "field_match": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "sparrow-000191-duplicate",
+      "file": "fixtures/sparrow-000191/duplicate.jpg",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "duplicate_detection",
+      "ground_truth": {
+        "invoice_number": "65524700",
+        "invoice_date": "2020-02-23",
+        "supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616",
+        "customer_name": "Hall-Cole 18526 Smith Loop Lake Jeremiah, VT 31868",
+        "subtotal": 9379.05,
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete",
+        "validation_codes": [
+          "duplicate_invoice"
+        ]
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {
+        "tax": 937.9,
+        "total": 10316.95,
+        "currency": "USD",
+        "subtotal": 9379.05,
+        "line_items": [
+          {
+            "amount": 269.9,
+            "quantity": 2.0,
+            "unit_price": 134.95,
+            "description": "Dell Desktop Computer 3020 Micro Tiny PC Intel i3 4GB 120GB SSD Windows 10 WiFi"
+          },
+          {
+            "amount": 836.0,
+            "quantity": 4.0,
+            "unit_price": 209.0,
+            "description": "HP Elite 8100 Desktop Computer Package - Intel Core i5 3.2-GHz, 8GB RAM, 500GB H"
+          },
+          {
+            "amount": 749.75,
+            "quantity": 5.0,
+            "unit_price": 149.95,
+            "description": "Dell Desktop Computer Optiplex 790 Tower PC Core i5 8GB 500GB Windows 10 Pro"
+          },
+          {
+            "amount": 1744.4,
+            "quantity": 5.0,
+            "unit_price": 348.88,
+            "description": "10-Core Gaming Computer Desktop PC Tower HDMI 8GB DDR4 R7 Graphic CUSTOM BUILT"
+          },
+          {
+            "amount": 4519.0,
+            "quantity": 5.0,
+            "unit_price": 903.8,
+            "description": "Gaming PC Desktop Computer HDMI RGB Intel i7 RTX 2060, HDD+SSD, Windows 10, Wifi"
+          },
+          {
+            "amount": 1260.0,
+            "quantity": 4.0,
+            "unit_price": 315.0,
+            "description": "Computer Desktop Gaming i5 4,00 Ram 16G"
+          }
+        ],
+        "invoice_date": "02/23/2020",
+        "customer_name": "Hall-Cole",
+        "supplier_name": "Kirk-Green",
+        "invoice_number": "65524700"
+      },
+      "validation_errors": [
+        {
+          "id": 118,
+          "code": "duplicate_invoice",
+          "field": "invoice_number",
+          "message": "Duplicate invoice for this supplier."
+        }
+      ],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 18.088,
+      "field_match": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "sparrow-000191-corrupt",
+      "file": "fixtures/sparrow-000191/corrupt.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "failure",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "processing": "failed"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {},
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 1.1431,
+      "field_match": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "sparrow-000191-empty",
+      "file": "fixtures/sparrow-000191/empty.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "failure",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "processing": "complete_or_review"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {},
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 3.312,
+      "field_match": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "sparrow-000191-wrong-extension",
+      "file": "fixtures/sparrow-000191/wrong-extension.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "wrong_extension",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "upload": "rejected"
+      },
+      "status": "upload_rejected",
+      "error": "API returned HTTP 400: {\"detail\":\"File content does not look like a PDF.\"}",
+      "predicted": {},
+      "validation_errors": [],
+      "latency_s": 0.0732
+    },
+    {
+      "id": "sparrow-000191-corrupt",
+      "file": "fixtures/sparrow-000191/corrupt.xlsx",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "failure",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "processing": "failed"
+      },
+      "status": "failed",
+      "error": "Cannot parse spreadsheet: File is not a zip file",
+      "predicted": {},
+      "validation_errors": [],
+      "job_status": "failed",
+      "latency_s": 1.1285
+    },
+    {
+      "id": "sparrow-000191-empty",
+      "file": "fixtures/sparrow-000191/empty.csv",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "empty",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "upload": "rejected"
+      },
+      "status": "upload_rejected",
+      "error": "API returned HTTP 400: {\"detail\":\"Uploaded file is empty.\"}",
+      "predicted": {},
+      "validation_errors": [],
+      "latency_s": 0.0352
+    },
+    {
+      "id": "sparrow-000191-password-protected",
+      "file": "fixtures/sparrow-000191/password-protected.pdf",
+      "source": "katanaml-org/invoices-donut-data-v1",
+      "case_type": "failure",
+      "ground_truth": {
+        "invoice_number": null,
+        "invoice_date": null,
+        "supplier_name": null,
+        "customer_name": null,
+        "subtotal": null,
+        "tax": null,
+        "total": null,
+        "currency": null
+      },
+      "expected": {
+        "processing": "failed"
+      },
+      "status": "complete",
+      "error": null,
+      "predicted": {},
+      "validation_errors": [],
+      "job_status": "complete",
+      "document_status": "needs_review",
+      "latency_s": 1.2881,
+      "field_match": [
+        0,
+        0
+      ]
     }
   ]
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import uuid
 from datetime import UTC, datetime
@@ -40,6 +41,12 @@ async def _record_history(session, document_id, event, detail=None):
     session.add(ProcessingHistory(document_id=document_id, event=event, detail=detail))
 
 
+def _embed_text(text: str) -> list[float] | None:
+    model = TextEmbedding(model_name=settings.embedding_model)
+    vectors = list(model.embed([text]))
+    return list(vectors[0]) if vectors else None
+
+
 async def process_document(ctx, job_id: str, document_id: str) -> None:
     job_uuid = uuid.UUID(job_id)
     doc_uuid = uuid.UUID(document_id)
@@ -64,18 +71,18 @@ async def process_document(ctx, job_id: str, document_id: str) -> None:
             text = ""
             page_count = None
             if kind == "pdf_text":
-                result = pdf_text.extract(path)
+                result = await asyncio.to_thread(pdf_text.extract, path)
                 text = result["text"]
                 page_count = result["page_count"]
             elif kind == "pdf_ocr":
-                result = ocr_pdf(path)
+                result = await asyncio.to_thread(ocr_pdf, path)
                 text = result["text"]
                 page_count = result["page_count"]
             elif kind == "image":
-                text = ocr_image(path)
+                text = await asyncio.to_thread(ocr_image, path)
                 page_count = 1
             elif kind == "spreadsheet":
-                result = spreadsheet.parse(path)
+                result = await asyncio.to_thread(spreadsheet.parse, path)
                 text = result["text"]
             else:
                 raise ValueError(f"Unknown parser kind: {kind}")
@@ -99,7 +106,7 @@ async def process_document(ctx, job_id: str, document_id: str) -> None:
             await _record_history(session, doc_uuid, "parsed", f"kind={kind}")
 
             # 2. Extract invoice (best-effort; empty text yields nulls)
-            invoice = extract_invoice(text) if text.strip() else None
+            invoice = await asyncio.to_thread(extract_invoice, text) if text.strip() else None
 
             # 3. Validate
             existing_keys: set[tuple] = set()
@@ -137,10 +144,8 @@ async def process_document(ctx, job_id: str, document_id: str) -> None:
             # 4. Embed (optional)
             if text.strip() and _FASTEMBED_AVAILABLE:
                 try:
-                    model = TextEmbedding(model_name=settings.embedding_model)
-                    vectors = list(model.embed([text]))
-                    if vectors:
-                        vec = list(vectors[0])
+                    vec = await asyncio.to_thread(_embed_text, text)
+                    if vec:
                         existing_emb = await session.get(Embedding, doc_uuid)
                         if existing_emb is None:
                             session.add(Embedding(document_id=doc_uuid, vector=vec))
@@ -176,5 +181,7 @@ class WorkerSettings:
     functions: ClassVar = [process_document]
     redis_settings = RedisSettings.from_dsn(settings.redis_url)
     max_jobs = 4
-    job_timeout = 300
+    # Allow time for OCR of large documents and the one-off embedding-model
+    # download on a fresh machine.
+    job_timeout = 900
     keep_result = 300

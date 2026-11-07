@@ -31,8 +31,14 @@ See `docs/DECISIONS.md` for the full rationale.
 3. Backend:
 
    ```bash
-   uv sync
-   cp .env.example .env   # fill GEMINI_API_KEY to use real extraction
+   uv sync --all-extras   # includes fastembed for semantic search
+   cp .env.example .env
+   # For real LLM extraction, set GEMINI_API_KEY and EXTRACTOR=gemini in .env.
+   # The default EXTRACTOR=fake is deterministic and works offline.
+   # Pre-download the embedding model once so the first document job does not
+   # spend several minutes fetching it (cache defaults to the system temp dir).
+   PYTHONPATH=src uv run python -c \
+     "from fastembed import TextEmbedding; TextEmbedding(model_name='BAAI/bge-small-en-v1.5')"
    PYTHONPATH=src uv run uvicorn docintel.main:app --reload --port 8000
    ```
 

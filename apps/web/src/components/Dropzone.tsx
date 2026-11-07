@@ -1,13 +1,18 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadDocuments } from "@/lib/api";
+import { getJob, uploadDocuments } from "@/lib/api";
+
+type UploadResult = { document_ids: string[]; job_ids: string[] };
 
 export default function Dropzone() {
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState<string>("");
-  const [result, setResult] = useState<{ document_ids: string[]; job_ids: string[] } | null>(null);
+  const [result, setResult] = useState<UploadResult | null>(null);
+  const [jobStatuses, setJobStatuses] = useState<Record<string, string>>({});
+  const [jobErrors, setJobErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<string>("");
 
   const onDrop = useCallback((accepted: File[]) => {
@@ -17,10 +22,48 @@ export default function Dropzone() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  useEffect(() => {
+    if (!result) return;
+    let cancelled = false;
+
+    async function poll() {
+      const entries = await Promise.all(
+        result!.job_ids.map(async (jobId, index) => {
+          const documentId = result!.document_ids[index];
+          try {
+            const job = await getJob(jobId);
+            return { documentId, status: job.status, error: job.error };
+          } catch {
+            return { documentId, status: "unreachable", error: "Could not read job status." };
+          }
+        }),
+      );
+      if (cancelled) return;
+
+      setJobStatuses(Object.fromEntries(entries.map((entry) => [entry.documentId, entry.status])));
+      setJobErrors(
+        Object.fromEntries(
+          entries.filter((entry) => entry.error).map((entry) => [entry.documentId, entry.error!]),
+        ),
+      );
+
+      if (entries.some((entry) => entry.status === "queued" || entry.status === "running")) {
+        setTimeout(poll, 1500);
+      }
+    }
+
+    poll();
+    return () => {
+      cancelled = true;
+    };
+  }, [result]);
+
   async function handleUpload() {
     if (files.length === 0) return;
     setStatus("Uploading...");
     setError("");
+    setJobStatuses({});
+    setJobErrors({});
     try {
       const res = await uploadDocuments(files);
       setResult(res);
@@ -58,10 +101,21 @@ export default function Dropzone() {
       {error && <p className="text-sm text-red-600">{error}</p>}
       {result && (
         <div className="text-sm">
-          <p>Document IDs:</p>
-          <ul>{result.document_ids.map((id) => <li key={id}>{id}</li>)}</ul>
-          <p>Job IDs:</p>
-          <ul>{result.job_ids.map((id) => <li key={id}>{id}</li>)}</ul>
+          <p className="font-medium mb-2">Processing status</p>
+          <ul className="space-y-2">
+            {result.document_ids.map((id, index) => (
+              <li key={id} className="border p-3 rounded">
+                <div className="flex items-center justify-between gap-2">
+                  <span>{files[index]?.name ?? id}</span>
+                  <span className="text-gray-600">{jobStatuses[id] ?? "queued"}</span>
+                </div>
+                {jobErrors[id] && <p className="text-red-600 text-xs mt-1">{jobErrors[id]}</p>}
+                <Link href={`/documents/${id}`} className="text-blue-600 text-xs underline">
+                  Inspect extracted data
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

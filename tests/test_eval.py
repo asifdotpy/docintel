@@ -146,6 +146,89 @@ def test_field_metrics_only_include_labeled_source_cases() -> None:
     assert metrics["fields"]["total"] == {"correct": 0, "total": 0, "accuracy": None}
 
 
+def test_compare_normalizes_dates_before_comparison() -> None:
+    """Equivalent dates in different formats count as a match."""
+    assert compare_fields({"invoice_date": "02/23/2020"}, {"invoice_date": "2020-02-23"}) == (1, 1)
+    assert compare_fields({"invoice_date": "2020-02-23"}, {"invoice_date": "02/23/2020"}) == (1, 1)
+
+
+def test_compare_rejects_date_vs_non_date() -> None:
+    """A date must not match a non-date string."""
+    assert compare_fields({"invoice_date": "not-a-date"}, {"invoice_date": "2020-02-23"}) == (0, 1)
+    assert compare_fields({"invoice_date": "2020-02-23"}, {"invoice_date": "not-a-date"}) == (0, 1)
+
+
+def test_compare_rejects_invalid_date_on_both_sides() -> None:
+    """Two unparseable date-like strings use exact match, not date normalization."""
+    assert compare_fields({"invoice_date": "hello"}, {"invoice_date": "world"}) == (0, 1)
+    assert compare_fields({"invoice_date": "hello"}, {"invoice_date": "hello"}) == (1, 1)
+
+
+def test_compare_entity_names_with_address_do_not_match() -> None:
+    """Ground truth embedding an address in the name does not match a name-only prediction."""
+    assert compare_fields(
+        {"supplier_name": "Kirk-Green"},
+        {"supplier_name": "Kirk-Green 7858 Christopher Pass Wellsside, KY 32616"},
+    ) == (0, 1)
+
+
+def test_compare_confirmed_absence_counts_false_positive() -> None:
+    """A non-null prediction on a confirmed-absent field is incorrect."""
+    truth = {"customer_name": None}
+    predicted = {"customer_name": "Consumidor final"}
+    assert compare_fields(predicted, truth, confirmed_absence=frozenset({"customer_name"})) == (0, 1)
+
+
+def test_compare_confirmed_absence_counts_correct_absence() -> None:
+    """A null prediction on a confirmed-absent field is correct."""
+    truth = {"customer_name": None}
+    predicted = {"customer_name": None}
+    assert compare_fields(predicted, truth, confirmed_absence=frozenset({"customer_name"})) == (1, 1)
+
+
+def test_field_metrics_excludes_unknown_nulls_from_denominator() -> None:
+    """Unknown-null GT fields are excluded from accuracy denominators."""
+    metrics = field_metrics(
+        [
+            {
+                "case_type": "labeled",
+                "ground_truth": {"invoice_number": "INV-1", "customer_name": None},
+                "predicted": {"invoice_number": "INV-1", "customer_name": "Consumidor final"},
+                "source": "invoicesreceiptspt",
+            }
+        ]
+    )
+    assert metrics["fields"]["customer_name"]["total"] == 0
+    assert metrics["fields"]["customer_name"]["accuracy"] is None
+    assert metrics["fields"]["invoice_number"]["total"] == 1
+    assert metrics["fields"]["invoice_number"]["correct"] == 1
+    assert metrics["unknown_null_predictions"] == {"customer_name": 1}
+
+
+def test_field_metrics_confirmed_absence_includes_in_denominator() -> None:
+    """Confirmed-absence null fields are included in accuracy denominators."""
+    from docintel.evaluation import SOURCE_CONFIRMED_ABSENCE
+
+    SOURCE_CONFIRMED_ABSENCE["confirmed-source"] = frozenset({"customer_name"})
+    try:
+        metrics = field_metrics(
+            [
+                {
+                    "case_type": "labeled",
+                    "ground_truth": {"customer_name": None},
+                    "predicted": {"customer_name": "Consumidor final"},
+                    "source": "confirmed-source",
+                }
+            ]
+        )
+        assert metrics["fields"]["customer_name"]["total"] == 1
+        assert metrics["fields"]["customer_name"]["correct"] == 0
+        assert metrics["fields"]["customer_name"]["accuracy"] == 0.0
+        assert metrics["unknown_null_predictions"] == {}
+    finally:
+        del SOURCE_CONFIRMED_ABSENCE["confirmed-source"]
+
+
 def test_prepare_generates_labeled_formats_and_expected_edge_case_labels(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

@@ -37,7 +37,9 @@ def _cosine(a: list[float], b: list[float]) -> float:
     nb = math.sqrt(sum(x * x for x in b))
     if na == 0 or nb == 0:
         return 0.0
-    return dot / (na * nb)
+    # Cast explicitly: embedding vectors may be numpy float32, which Pydantic
+    # cannot serialize when returned in an API response.
+    return float(dot / (na * nb))
 
 
 def _embed(text: str) -> list[float] | None:

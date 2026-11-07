@@ -51,6 +51,13 @@ SOURCE_LABEL_MAPPINGS = {
     },
 }
 
+# Source-specific confirmed absence: fields that source documentation
+# explicitly documents as absent (not merely unmapped). Populate only when
+# documented semantics support it; otherwise leave empty so unknown nulls are
+# excluded from accuracy denominators. No current source has documentation
+# confirming specific field absences, so this map is intentionally empty.
+SOURCE_CONFIRMED_ABSENCE: dict[str, frozenset[str]] = {}
+
 
 def _nested_value(value: Mapping[str, Any], path: str | None) -> Any:
     if path is None:
@@ -100,6 +107,22 @@ def _iso_date(value: Any) -> str | None:
     return value.strip()
 
 
+def _parse_date(value: Any) -> str | None:
+    """Parse a date string to ISO format, or return None if not a valid date.
+
+    Unlike _iso_date, this returns None for values that do not parse as a date
+    in any known format, so callers can distinguish dates from plain strings.
+    """
+    if not isinstance(value, str) or not value.strip():
+        return None
+    for date_format in ("%m/%d/%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(value.strip(), date_format).date().isoformat()
+        except ValueError:
+            pass
+    return None
+
+
 def normalize_ground_truth(source_id: str, raw: Any) -> dict[str, Any]:
     """Map available source annotations to the fixed app schema without guessing."""
     normalized = dict.fromkeys(INVOICE_FIELDS)
@@ -134,42 +157,84 @@ def deterministic_sample_indices(source_id: str, total: int, count: int, seed: i
     return sorted(generator.sample(range(total), count))
 
 
+def _values_match(expected: Any, actual: Any) -> bool:
+    """Compare two expected/actual values with date normalization and numeric tolerance.
+
+    Dates are normalized to ISO before comparison so equivalent dates in
+    different formats (e.g. "2020-02-23" vs "02/23/2020") count as a match.
+    Numeric values use tolerance comparison. All other values use exact match.
+    """
+    if isinstance(expected, (int, float)) and not isinstance(expected, bool):
+        try:
+            return actual is not None and abs(float(actual) - expected) < 1e-6
+        except (TypeError, ValueError, OverflowError):
+            return False
+    expected_date = _parse_date(expected)
+    actual_date = _parse_date(actual)
+    if expected_date is not None or actual_date is not None:
+        return (
+            expected_date is not None
+            and actual_date is not None
+            and expected_date == actual_date
+        )
+    return actual == expected
+
+
 def compare_fields(
     predicted: Mapping[str, object],
     truth: Mapping[str, object],
+    confirmed_absence: frozenset[str] | None = None,
 ) -> tuple[int, int]:
     total = 0
     correct = 0
+    confirmed_absence = confirmed_absence or frozenset()
     for key, expected in truth.items():
         if expected is None:
+            if key in confirmed_absence:
+                # Confirmed absence: prediction must also be null to be correct.
+                total += 1
+                if predicted.get(key) is None:
+                    correct += 1
+            # Unknown nulls are excluded from the denominator entirely.
             continue
         total += 1
         actual = predicted.get(key)
-        if isinstance(expected, (int, float)) and not isinstance(expected, bool):
-            try:
-                matches = actual is not None and abs(float(actual) - expected) < 1e-6
-            except (TypeError, ValueError, OverflowError):
-                matches = False
-            if matches:
-                correct += 1
-        elif actual == expected:
+        if _values_match(expected, actual):
             correct += 1
     return correct, total
 
 
 def field_metrics(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     counts = {field: {"correct": 0, "total": 0} for field in INVOICE_FIELDS}
+    unknown_null_predictions: dict[str, int] = {field: 0 for field in INVOICE_FIELDS}
     for record in records:
         if record.get("case_type") != "labeled":
             continue
         truth = record.get("ground_truth") or {}
         predicted = record.get("predicted") or {}
+        source_id = record.get("source")
+        confirmed_absence = SOURCE_CONFIRMED_ABSENCE.get(source_id, frozenset())
         for field in INVOICE_FIELDS:
             expected = truth.get(field)
             if expected is None:
+                if field in confirmed_absence:
+                    # Confirmed absence: include in denominator; non-null
+                    # prediction is a false positive.
+                    counts[field]["total"] += 1
+                    if predicted.get(field) is None:
+                        counts[field]["correct"] += 1
+                else:
+                    # Unknown null: exclude from denominator, track
+                    # predictions on it separately.
+                    if predicted.get(field) is not None:
+                        unknown_null_predictions[field] += 1
                 continue
             counts[field]["total"] += 1
-            correct, _ = compare_fields({field: predicted.get(field)}, {field: expected})
+            correct, _ = compare_fields(
+                {field: predicted.get(field)},
+                {field: expected},
+                confirmed_absence,
+            )
             counts[field]["correct"] += correct
     for item in counts.values():
         item["accuracy"] = item["correct"] / item["total"] if item["total"] else None
@@ -181,6 +246,9 @@ def field_metrics(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             "correct": correct,
             "total": total,
             "accuracy": correct / total if total else None,
+        },
+        "unknown_null_predictions": {
+            field: count for field, count in unknown_null_predictions.items() if count > 0
         },
     }
 

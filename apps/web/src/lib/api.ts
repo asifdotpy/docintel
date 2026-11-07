@@ -16,6 +16,12 @@ export async function uploadDocuments(files: File[]): Promise<{ document_ids: st
   return res.json();
 }
 
+export async function getJob(id: string): Promise<{ id: string; status: string; error: string | null }> {
+  const res = await fetch(`${API_URL}/api/jobs/${id}`);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
 export async function getDocument(id: string): Promise<{
   document: { id: string; filename: string; status: string };
   extraction: Record<string, unknown> | null;
